@@ -45,7 +45,7 @@ app.post('/comments',(req, res) => {
     // console.log(req.body);
     const {username, comment} = req.body;
     comments.push({username, comment});
-    res.send('new comment')
+    res.redirect('/comments'); //GET by default
 })
 
 
