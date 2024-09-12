@@ -15,27 +15,27 @@ app.set('views', path.join(__dirname, '/views'));
 
 const comments = [
     {
-        id: 1,
+        id: uuidv4(),
         username: 'Todd',
         comment: 'lol that is so funny'
     },
     {
-        id: 2,
+        id: uuidv4(),
         username: 'skylar',
         comment: 'the danger herself'
     },
     {
-        id: 3,
+        id: uuidv4(),
         username: 'sk8erboi',
         comment: 'skyyyyyy die lit'
     },
     {
-        id: 4,
+        id: uuidv4(),
         username: 'dogy',
         comment: 'cvvv ss'
     },
     {
-        id: 5,
+        id: uuidv4(),
         username: 'onlysayswooof',
         comment: 'wooof'
     },
@@ -51,7 +51,7 @@ app.get('/comments/new',(req, res) => {
 app.post('/comments',(req, res) => {
     // console.log(req.body);
     const {username, comment} = req.body;
-    comments.push({username, comment});
+    comments.push({username, comment, id: uuidv4()});
     res.redirect('/comments'); //GET by default
 })
 app.get('/comments/:id',(req,res)=>{
