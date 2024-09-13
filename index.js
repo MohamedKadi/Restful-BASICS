@@ -16,7 +16,7 @@ const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
 
 
-const comments = [
+let comments = [
     {
         id: uuidv4(),
         username: 'Todd',
@@ -76,6 +76,11 @@ app.get('/comments/:id/edit',(req,res)=>{
     res.render('comments/edit', {
         comment: comment,
     })
+})
+app.delete('/comments/:id',(req,res)=>{
+    const { id } = req.params;
+    comments = comments.filter(comm => comm.id !== id);
+    res.redirect('/comments');
 })
 
 
