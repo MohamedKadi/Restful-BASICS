@@ -12,6 +12,9 @@ app.set('view engine', 'ejs');
 const path = require('path');
 app.set('views', path.join(__dirname, '/views'));
 
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 
 const comments = [
     {
@@ -56,9 +59,23 @@ app.post('/comments',(req, res) => {
 })
 app.get('/comments/:id',(req,res)=>{
     const { id } = req.params;
-    const comment = comments.find(c => c.id === parseInt(id));
+    const comment = comments.find(c => c.id === id);
     console.log(comment);
     res.render('comments/show', {comment: comment})
+})
+app.patch('/comments/:id',(req,res)=>{
+    const { id } = req.params;
+    const foundComment = comments.find(c => c.id === id);
+    const newComment = req.body.comment;
+    foundComment.comment = newComment;
+    res.redirect('/comments');
+})
+app.get('/comments/:id/edit',(req,res)=>{
+    const { id } = req.params;
+    const comment = comments.find(c => c.id === id);
+    res.render('comments/edit', {
+        comment: comment,
+    })
 })
 
 
